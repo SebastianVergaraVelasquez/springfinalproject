@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nasefa.springfinalproject.domain.repositories.GammaRepository;
-import com.nasefa.springfinalproject.domain.repositories.ProductRepository;
+// import com.nasefa.springfinalproject.domain.repositories.ProductRepository;
 import com.nasefa.springfinalproject.persistence.entities.Gamma;
 
 
@@ -19,8 +19,8 @@ public class SpringfinalprojectApplication implements CommandLineRunner{
 	@Autowired
 	private GammaRepository gammaRepo;
 
-	@Autowired
-	private ProductRepository productRepo;
+	// @Autowired
+	// private ProductRepository productRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringfinalprojectApplication.class, args);
@@ -33,7 +33,7 @@ public class SpringfinalprojectApplication implements CommandLineRunner{
 	
 	@Transactional
 	public void gammaList(){
-		List<Gamma> gammas = (List<Gamma>) gammaRepo.findAllWithProducts();
+		List<Gamma> gammas = (List<Gamma>) gammaRepo.findAllWithProducts("a");
 
 		gammas.stream().forEach(gamma -> {
 			System.out.println(gamma.getProducts());

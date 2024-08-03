@@ -1,10 +1,15 @@
 
 package com.nasefa.springfinalproject.persistence.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,7 +36,11 @@ public class Product {
     private Double width;
     private Double depth;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy ="product")
+    private List<OrdersDetail> ordersDetails;
+
     public Product() {
+        ordersDetails = new ArrayList<>();
     }
 
     public Product(String productCode, String name, Gamma gamma, int stock, Double price, String description,
