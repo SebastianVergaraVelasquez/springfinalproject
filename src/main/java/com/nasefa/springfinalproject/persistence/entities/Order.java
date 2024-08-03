@@ -9,11 +9,12 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "oders")
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -34,8 +35,11 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order")
     private List<OrdersDetail> ordersDetails;
 
-
-    //Falta agregar la relación para cliente y estado
+    @ManyToOne
+    @JoinColumn(name = "id_status")
+    private Status status;
+    
+    //Falta agregar la relación para cliente 
 
     public Order() {
         ordersDetails = new ArrayList<>();
