@@ -1,5 +1,8 @@
 package com.nasefa.springfinalproject.persistence.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,6 +10,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -32,7 +36,11 @@ public class Client {
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private Address address;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", orphanRemoval = true)
+    private List<Payment> payment;
+
     public Client() {
+        payment = new ArrayList<>();
     }
 
     public Client(int id, String name, String lastname, Double creditLimit, Employee salesRep, Address address) {
