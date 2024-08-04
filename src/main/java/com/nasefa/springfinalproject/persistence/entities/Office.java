@@ -3,6 +3,8 @@ package com.nasefa.springfinalproject.persistence.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +31,7 @@ public class Office {
     private String telephone;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "office")
+    @JsonIgnore
     private List<Employee> employees;
 
     public Office() {
@@ -39,6 +42,14 @@ public class Office {
         this.city = city;
         this.addres = addres;
         this.telephone = telephone;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 
     public int getId() {
