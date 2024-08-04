@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.nasefa.springfinalproject.persistence.entities.Address;
 
-public interface AddressRepository{
+public interface AddressRepository extends CrudRepository<Address,Integer>{
 
 }

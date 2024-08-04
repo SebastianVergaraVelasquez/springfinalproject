@@ -15,6 +15,7 @@ public class City {
     
     @Id
     private int id;
+    
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "city")
