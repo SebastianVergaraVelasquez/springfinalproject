@@ -19,7 +19,7 @@ public class GammaImpl implements IGamma {
     @Transactional(readOnly = true)
     @Override
     public List<Gamma> findAll() {
-        return (List<Gamma>)repository.findAll();
+        return (List<Gamma>) repository.findAll();
     }
 
     @Transactional(readOnly = true)
@@ -39,13 +39,23 @@ public class GammaImpl implements IGamma {
     public Optional<Gamma> update(String gammaCode, Gamma updatedGamma) {
         Optional<Gamma> optionalGamma = repository.findById(gammaCode);
         optionalGamma.ifPresentOrElse(
-            Gamma -> {
-                repository.save(updatedGamma);
-            },
-            () -> {
-                System.out.println("Gamma not registered");
-            }
-        );
+                Gamma -> {
+                    Gamma.setName(updatedGamma.getName());
+                    Gamma.setDescription(updatedGamma.getDescription());
+                    // Manejar la lista de productos
+                    if (updatedGamma.getProducts() != null) {
+                        // Limpiar la lista existente
+                        Gamma.getProducts().clear();
+                        // Agregar los productos nuevos (si no está vacía)
+                        if (!updatedGamma.getProducts().isEmpty()) {
+                            Gamma.getProducts().addAll(updatedGamma.getProducts());
+                        }
+                    }
+                    repository.save(Gamma);
+                },
+                () -> {
+                    System.out.println("owo");
+                });
         return optionalGamma;
     }
 
@@ -54,13 +64,13 @@ public class GammaImpl implements IGamma {
     public Optional<Gamma> delete(String gammaCode) {
         Optional<Gamma> optionalGamma = repository.findById(gammaCode);
         optionalGamma.ifPresentOrElse(
-            Gamma -> {
-                repository.delete(optionalGamma.get());;
-            },
-            () -> {
-                System.out.println("Gamma not registered");
-            }
-        );
+                Gamma -> {
+                    repository.delete(optionalGamma.get());
+                    ;
+                },
+                () -> {
+                    System.out.println("Gamma not registered");
+                });
         return optionalGamma;
     }
 

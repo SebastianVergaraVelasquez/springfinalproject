@@ -4,6 +4,8 @@ package com.nasefa.springfinalproject.persistence.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+// import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -44,7 +46,7 @@ public class Product {
     }
 
     public Product(String productCode, String name, Gamma gamma, int stock, Double price, String description,
-            Double height, Double width, Double depth) {
+            Double height, Double width, Double depth, List<OrdersDetail> ordersDetails) {
         this.productCode = productCode;
         this.name = name;
         this.gamma = gamma;
@@ -54,10 +56,19 @@ public class Product {
         this.height = height;
         this.width = width;
         this.depth = depth;
+        this.ordersDetails = ordersDetails;
     }
 
     public String getProductCode() {
         return productCode;
+    }
+
+    public List<OrdersDetail> getOrdersDetails() {
+        return ordersDetails;
+    }
+
+    public void setOrdersDetails(List<OrdersDetail> ordersDetails) {
+        this.ordersDetails = ordersDetails;
     }
 
     public void setProductCode(String productCode) {

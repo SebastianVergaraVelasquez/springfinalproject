@@ -3,6 +3,9 @@ package com.nasefa.springfinalproject.persistence.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+// import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -23,6 +26,7 @@ public class Gamma {
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "gamma", orphanRemoval = true)
+    @JsonIgnore
     private List<Product> products;
 
     public Gamma() {
