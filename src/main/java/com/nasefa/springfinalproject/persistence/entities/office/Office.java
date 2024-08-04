@@ -1,9 +1,11 @@
-package com.nasefa.springfinalproject.persistence.entities;
+package com.nasefa.springfinalproject.persistence.entities.office;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nasefa.springfinalproject.persistence.entities.City;
+import com.nasefa.springfinalproject.persistence.entities.Employee;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

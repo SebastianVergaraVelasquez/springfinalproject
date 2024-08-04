@@ -6,36 +6,41 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nasefa.springfinalproject.domain.repositories.CityRepository;
 import com.nasefa.springfinalproject.domain.repositories.OfficeRepository;
-import com.nasefa.springfinalproject.persistence.entities.Office;
+import com.nasefa.springfinalproject.persistence.entities.City;
+import com.nasefa.springfinalproject.persistence.entities.office.Office;
 
 @Service
 public class OfficeImpl implements IOffice {
 
     @Autowired
-    private OfficeRepository repository;
+    private OfficeRepository officeRepository;
+
+    @Autowired CityRepository cityRepository;
 
     @Override
     public List<Office> findAll() {
-        return (List<Office>) repository.findAllwithCity();
+        return (List<Office>) officeRepository.findAllwithCity();
     }
 
     @Override
     public Optional<Office> findById(int id) {
-        return repository.findById(id);
+        return officeRepository.findById(id);
     }
 
     @Override
     public Office save(Office office) {
-        return repository.save(office);
+        return officeRepository.save(office);
     }
 
     @Override
-    public Optional<Office> update(int id, Office updatedOffice) {
-        Optional<Office> optionalOffice = repository.findById(id);
+    public Optional<Office> update(int id, Office updatedOffice, int idCity) {
+        Optional<Office> optionalOffice = officeRepository.findById(id);
         optionalOffice.ifPresentOrElse(
                 office -> {
-                    office.setCity(updatedOffice.getCity());
+                    Optional<City> cityOptional = cityRepository.findById(idCity);
+                    office.setCity(cityOptional.get());
                     office.setAddres(updatedOffice.getAddres());
                     office.setTelephone(updatedOffice.getTelephone());
                     if (updatedOffice.getEmployees() != null) {
@@ -46,7 +51,7 @@ public class OfficeImpl implements IOffice {
                             office.getEmployees().addAll(updatedOffice.getEmployees());
                         }
                     }
-                    repository.save(office);
+                    officeRepository.save(office);
                 }, () -> {
                     System.out.println("office not registered");
                 });
@@ -55,10 +60,10 @@ public class OfficeImpl implements IOffice {
 
     @Override
     public Optional<Office> delete(int id) {
-        Optional<Office> optionalProduct = repository.findById(id);
+        Optional<Office> optionalProduct = officeRepository.findById(id);
         optionalProduct.ifPresentOrElse(
                 product -> {
-                    repository.delete(optionalProduct.get());
+                    officeRepository.delete(optionalProduct.get());
                     ;
                 },
                 () -> {
