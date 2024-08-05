@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.nasefa.springfinalproject.persistence.entities.office.OfficeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,6 @@ import com.nasefa.springfinalproject.domain.services.city.ICity;
 import com.nasefa.springfinalproject.domain.services.office.IOffice;
 import com.nasefa.springfinalproject.persistence.entities.City;
 import com.nasefa.springfinalproject.persistence.entities.office.Office;
-import com.nasefa.springfinalproject.persistence.entities.office.OfficeUpdateDTO;
 
 @RestController
 @RequestMapping("/garden/office")
@@ -59,8 +59,8 @@ public class OfficeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Office> update(@PathVariable int id, @RequestBody OfficeUpdateDTO requestedOffice) {
-        Optional<Office> optionalOffice = officeService.update(id, requestedOffice.getUpdatedOffice(), requestedOffice.getCityId());
+    public ResponseEntity<Office> update(@PathVariable int id, @RequestBody OfficeDTO requestedOffice) {
+        Optional<Office> optionalOffice = officeService.update(id, requestedOffice.getOffice(), requestedOffice.getIdCity());
         return optionalOffice.map(office -> new ResponseEntity<>(office, HttpStatus.OK))
                             .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
