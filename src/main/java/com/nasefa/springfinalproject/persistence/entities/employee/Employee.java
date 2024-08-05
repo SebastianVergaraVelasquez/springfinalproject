@@ -1,8 +1,11 @@
-package com.nasefa.springfinalproject.persistence.entities;
+package com.nasefa.springfinalproject.persistence.entities.employee;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nasefa.springfinalproject.persistence.entities.Client;
+import com.nasefa.springfinalproject.persistence.entities.EmployeePosition;
 import com.nasefa.springfinalproject.persistence.entities.office.Office;
 
 import jakarta.persistence.CascadeType;
@@ -41,6 +44,7 @@ public class Employee {
 
     //RELACION CON CLIENTES ONETOMANY
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "salesRep")
+    @JsonIgnore
     private List<Client> clients;
 
     public Employee() {

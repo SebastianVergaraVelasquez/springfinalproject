@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nasefa.springfinalproject.persistence.entities.City;
-import com.nasefa.springfinalproject.persistence.entities.Employee;
+import com.nasefa.springfinalproject.persistence.entities.employee.Employee;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

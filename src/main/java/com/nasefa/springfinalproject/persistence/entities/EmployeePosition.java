@@ -3,6 +3,9 @@ package com.nasefa.springfinalproject.persistence.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nasefa.springfinalproject.persistence.entities.employee.Employee;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +27,7 @@ public class EmployeePosition {
     private String name;
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "position")
+    @JsonIgnore
     private List<Employee> employees;
 
     public EmployeePosition() {
