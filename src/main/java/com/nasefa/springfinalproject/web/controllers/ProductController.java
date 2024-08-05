@@ -1,9 +1,7 @@
 package com.nasefa.springfinalproject.web.controllers;
 
 import com.nasefa.springfinalproject.domain.services.gamma.IGamma;
-import com.nasefa.springfinalproject.persistence.entities.City;
 import com.nasefa.springfinalproject.persistence.entities.Gamma;
-import com.nasefa.springfinalproject.persistence.entities.office.Office;
 import com.nasefa.springfinalproject.persistence.entities.product.ProductDTO;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,8 +67,8 @@ public class ProductController {
     }
     
     @PutMapping("/{productCode}")
-    public ResponseEntity<Product> putMethodName(@PathVariable String productCode, @RequestBody Product product) {
-        Optional<Product> optionalProduct = productService.update(productCode,product);
+    public ResponseEntity<Product> putMethodName(@PathVariable String productCode, @RequestBody ProductDTO product) {
+        Optional<Product> optionalProduct = productService.update(productCode, product.getProduct(), product.getGammaCode());
         return optionalProduct.map(gamma -> new ResponseEntity<>(gamma, HttpStatus.OK))
                             .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

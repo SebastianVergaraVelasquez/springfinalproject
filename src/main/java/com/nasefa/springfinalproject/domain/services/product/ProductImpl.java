@@ -52,12 +52,13 @@ public class ProductImpl implements IProduct {
     }
 
     @Override
-    public Optional<Product> update(String productCode, Product updatedProduct) {
+    public Optional<Product> update(String productCode, Product updatedProduct, String gammaCode) {
         Optional<Product> optionalProduct = productRepository.findById(productCode);
         optionalProduct.ifPresentOrElse(
                 product -> {
                     product.setName(updatedProduct.getName());
-                    product.setGamma(updatedProduct.getGamma());
+                    Optional<Gamma> optionalGamma = gammaRepository.findById(gammaCode);
+                    product.setGamma(optionalGamma.get());
                     product.setStock(updatedProduct.getStock());
                     product.setPrice(updatedProduct.getPrice());
                     product.setDescription(updatedProduct.getDescription());
