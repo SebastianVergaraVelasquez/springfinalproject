@@ -3,6 +3,7 @@ package com.nasefa.springfinalproject.persistence.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nasefa.springfinalproject.persistence.entities.employee.Employee;
 
 import jakarta.persistence.CascadeType;
@@ -39,7 +40,28 @@ public class Client {
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", orphanRemoval = true)
+    @JsonIgnore
     private List<Payment> payment;
+
+    public List<Payment> getPayment() {
+        return payment;
+    }
+
+    public void setPayment(List<Payment> payment) {
+        this.payment = payment;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", orphanRemoval = true)
+    @JsonIgnore
+    private List<Order> orders;
 
     public Client() {
         payment = new ArrayList<>();

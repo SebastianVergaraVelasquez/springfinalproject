@@ -38,8 +38,26 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "id_status")
     private Status status;
+
+    @ManyToOne
+    @JoinColumn(name = "id_client")
+    private Client client;
     
-    //Falta agregar la relación para cliente 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public Order() {
         ordersDetails = new ArrayList<>();
