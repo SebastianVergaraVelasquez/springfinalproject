@@ -30,7 +30,9 @@ public class OfficeImpl implements IOffice {
     }
 
     @Override
-    public Office save(Office office) {
+    public Office save(Office office, int idCity) {
+        Optional<City> optionalCity = cityRepository.findById(idCity);
+        office.setCity(optionalCity.get());
         return officeRepository.save(office);
     }
 

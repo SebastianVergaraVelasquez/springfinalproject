@@ -53,8 +53,8 @@ public class OfficeController {
     }
 
     @PostMapping
-    public ResponseEntity<Office> create(@RequestBody Office office) {
-        Office savedOffice = officeService.save(office);
+    public ResponseEntity<Office> create(@RequestBody OfficeDTO requestedOffice) {
+        Office savedOffice = officeService.save(requestedOffice.getOffice(), requestedOffice.getIdCity());
         return new ResponseEntity<>(savedOffice, HttpStatus.CREATED);
     }
 
