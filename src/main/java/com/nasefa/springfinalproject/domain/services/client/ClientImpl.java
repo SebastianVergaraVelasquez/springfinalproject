@@ -54,42 +54,79 @@ public class ClientImpl implements IClient {
         return clientRepository.save(client);
     }
 
-    @Override
+    // @Override
+    // public Optional<Client> update(int clientId, Client updatedClient, int salesRepId) {
+
+    //     Optional<Employee> optEmployee = employeeRepository.findById(salesRepId);
+    //     Optional<Client> optionalClient = clientRepository.findById(clientId);
+
+    //     if (optionalClient.isEmpty()) {
+    //         return Optional.empty(); // Either client or payment type not found, return empty
+    //     }
+    //     Client client = optionalClient.get();
+    //     client.setName(updatedClient.getName());
+    //     client.setLastname(updatedClient.getLastname());
+    //     client.setCreditLimit(updatedClient.getCreditLimit());
+    //     client.setSalesRep(optEmployee.get());
+
+    //     if (updatedClient.getOrders() != null) {
+    //         // Limpiar la lista existente
+    //         client.getOrders().clear();
+    //         // Agregar los productos nuevos (si no está vacía)
+    //         if (!updatedClient.getOrders().isEmpty()) {
+    //             client.getOrders().addAll(updatedClient.getOrders());
+    //         }
+    //     }
+
+    //     if (updatedClient.getPayment() != null) {
+    //         // Limpiar la lista existente
+    //         client.getPayment().clear();
+    //         // Agregar los productos nuevos (si no está vacía)
+    //         if (!updatedClient.getPayment().isEmpty()) {
+    //             client.getPayment().addAll(updatedClient.getPayment());
+    //         }
+    //     }
+
+    //     Client savedClient = clientRepository.save(client);
+    //     return Optional.of(savedClient);
+
+    // }
+
     public Optional<Client> update(int clientId, Client updatedClient, int salesRepId) {
 
         Optional<Employee> optEmployee = employeeRepository.findById(salesRepId);
-        Client client = clientRepository.findById(clientId).get();
-
-        if (optEmployee.isEmpty()) {
-            return Optional.empty(); // Either client or payment type not found, return empty
+        Optional<Client> optionalClient = clientRepository.findById(clientId);
+    
+        if (optionalClient.isEmpty() || optEmployee.isEmpty()) {
+            return Optional.empty(); // Either client or salesRep not found, return empty
         }
-
+    
+        Client client = optionalClient.get();
         client.setName(updatedClient.getName());
         client.setLastname(updatedClient.getLastname());
         client.setCreditLimit(updatedClient.getCreditLimit());
         client.setSalesRep(optEmployee.get());
-
+    
         if (updatedClient.getOrders() != null) {
-            // Limpiar la lista existente
+            // Limpiar el conjunto existente
             client.getOrders().clear();
-            // Agregar los productos nuevos (si no está vacía)
+            // Agregar los pedidos nuevos (si no está vacío)
             if (!updatedClient.getOrders().isEmpty()) {
                 client.getOrders().addAll(updatedClient.getOrders());
             }
         }
-
+    
         if (updatedClient.getPayment() != null) {
-            // Limpiar la lista existente
+            // Limpiar el conjunto existente
             client.getPayment().clear();
-            // Agregar los productos nuevos (si no está vacía)
+            // Agregar los pagos nuevos (si no está vacío)
             if (!updatedClient.getPayment().isEmpty()) {
                 client.getPayment().addAll(updatedClient.getPayment());
             }
         }
-
+    
         Client savedClient = clientRepository.save(client);
         return Optional.of(savedClient);
-
     }
 
     @Override

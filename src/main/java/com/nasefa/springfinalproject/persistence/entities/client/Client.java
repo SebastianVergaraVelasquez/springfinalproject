@@ -1,7 +1,9 @@
 package com.nasefa.springfinalproject.persistence.entities.client;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nasefa.springfinalproject.persistence.entities.Address;
@@ -44,19 +46,17 @@ public class Client {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", orphanRemoval = true)
     @JsonIgnore
-    private List<Payment> payment;
+     private Set<Payment> payment = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", orphanRemoval = true)
     @JsonIgnore
-    private List<Order> orders;
+    private Set<Order> orders = new HashSet<>();
 
     public Client() {
-        payment = new ArrayList<>();
-        orders = new ArrayList<>();
     }
 
     public Client(int id, String name, String lastname, Double creditLimit, Employee salesRep, Address address,
-            List<Payment> payment, List<Order> orders) {
+            Set<Payment> payment, Set<Order> orders) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -67,22 +67,6 @@ public class Client {
         this.orders = orders;
     }
 
-    public List<Payment> getPayment() {
-        return payment;
-    }
-
-    public void setPayment(List<Payment> payment) {
-        this.payment = payment;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-    
     public int getId() {
         return id;
     }
@@ -129,6 +113,22 @@ public class Client {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Set<Payment> getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Set<Payment> payment) {
+        this.payment = payment;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
 }
