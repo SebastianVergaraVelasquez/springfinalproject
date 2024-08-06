@@ -12,19 +12,20 @@ import com.nasefa.springfinalproject.persistence.entities.client.Client;
 import com.nasefa.springfinalproject.persistence.entities.employee.Employee;
 
 @Service
-public class ClientImpl implements IClient{
+public class ClientImpl implements IClient {
 
     @Autowired
     private ClientRepository clientRepository;
 
-    // @Autowired 
+    // @Autowired
     // private ICity cityRepository;
 
     @Autowired
     private EmployeeRepository employeeRepository;
 
     // @Autowired
-    // private AddressRepository addressRepository; //verificar luego el editar de address
+    // private AddressRepository addressRepository; //verificar luego el editar de
+    // address
 
     @Override
     public List<Client> findAllClientsWithDetails() {
@@ -54,9 +55,41 @@ public class ClientImpl implements IClient{
     }
 
     @Override
-    public Optional<Client> update(Client client, int salesRepId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public Optional<Client> update(int clientId, Client updatedClient, int salesRepId) {
+
+        Optional<Employee> optEmployee = employeeRepository.findById(salesRepId);
+        Client client = clientRepository.findById(clientId).get();
+
+        if (optEmployee.isEmpty()) {
+            return Optional.empty(); // Either client or payment type not found, return empty
+        }
+
+        client.setName(updatedClient.getName());
+        client.setLastname(updatedClient.getLastname());
+        client.setCreditLimit(updatedClient.getCreditLimit());
+        client.setSalesRep(optEmployee.get());
+
+        if (updatedClient.getOrders() != null) {
+            // Limpiar la lista existente
+            client.getOrders().clear();
+            // Agregar los productos nuevos (si no está vacía)
+            if (!updatedClient.getOrders().isEmpty()) {
+                client.getOrders().addAll(updatedClient.getOrders());
+            }
+        }
+
+        if (updatedClient.getPayment() != null) {
+            // Limpiar la lista existente
+            client.getPayment().clear();
+            // Agregar los productos nuevos (si no está vacía)
+            if (!updatedClient.getPayment().isEmpty()) {
+                client.getPayment().addAll(updatedClient.getPayment());
+            }
+        }
+
+        Client savedClient = clientRepository.save(client);
+        return Optional.of(savedClient);
+
     }
 
     @Override

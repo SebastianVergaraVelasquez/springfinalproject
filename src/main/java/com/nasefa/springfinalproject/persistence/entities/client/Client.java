@@ -46,6 +46,27 @@ public class Client {
     @JsonIgnore
     private List<Payment> payment;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", orphanRemoval = true)
+    @JsonIgnore
+    private List<Order> orders;
+
+    public Client() {
+        payment = new ArrayList<>();
+        orders = new ArrayList<>();
+    }
+
+    public Client(int id, String name, String lastname, Double creditLimit, Employee salesRep, Address address,
+            List<Payment> payment, List<Order> orders) {
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.creditLimit = creditLimit;
+        this.salesRep = salesRep;
+        this.address = address;
+        this.payment = payment;
+        this.orders = orders;
+    }
+
     public List<Payment> getPayment() {
         return payment;
     }
@@ -61,24 +82,7 @@ public class Client {
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", orphanRemoval = true)
-    @JsonIgnore
-    private List<Order> orders;
-
-    public Client() {
-        payment = new ArrayList<>();
-    }
-
-    public Client(int id, String name, String lastname, Double creditLimit, Employee salesRep, Address address) {
-        this.id = id;
-        this.name = name;
-        this.lastname = lastname;
-        this.creditLimit = creditLimit;
-        this.salesRep = salesRep;
-        this.address = address;
-    }
-
+    
     public int getId() {
         return id;
     }

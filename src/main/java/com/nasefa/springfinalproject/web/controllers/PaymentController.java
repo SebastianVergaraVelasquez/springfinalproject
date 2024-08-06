@@ -6,7 +6,6 @@ import com.nasefa.springfinalproject.domain.services.paytype.IPaymentType;
 import com.nasefa.springfinalproject.persistence.entities.payment.Payment;
 import com.nasefa.springfinalproject.persistence.entities.PaymentType;
 import com.nasefa.springfinalproject.persistence.entities.client.Client;
-import com.nasefa.springfinalproject.persistence.entities.payment.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

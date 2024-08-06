@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nasefa.springfinalproject.domain.services.client.IClient;
+import com.nasefa.springfinalproject.domain.services.employee.IEmployee;
 import com.nasefa.springfinalproject.persistence.entities.client.Client;
 import com.nasefa.springfinalproject.persistence.entities.client.ClientDTO;
+import com.nasefa.springfinalproject.persistence.entities.employee.Employee;
+
 
 @RestController
 @RequestMapping("/garden/clients")
@@ -26,11 +29,19 @@ public class ClientController {
     @Autowired
     private IClient clientService;
 
-    @GetMapping()
+    @Autowired
+    private IEmployee employeeService;
+
+    @GetMapping("/employees")
     public List<Client> getall() {
         return clientService.findAllClientsWithDetails(); 
     }
 
+    @GetMapping
+    public List<Employee> getSalesRep() {
+        return employeeService.findAll();
+    }
+    
     @GetMapping("/order/{status}")
     public List<Client> getByStatus(@PathVariable String status){
         return clientService.findAllClientsByOrderStatus(status);
@@ -48,8 +59,6 @@ public class ClientController {
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-
-    //Para este sí enviar la dirección dentro de client pls
     @PostMapping
     public ResponseEntity<Client> postMethodName(@RequestBody ClientDTO client) {
         Client savedClient = clientService.save(client.getClient(), client.getSalesRepId());
@@ -59,7 +68,7 @@ public class ClientController {
     
     @PutMapping("/{id}") //Vrificar qué datos vamos a mandar para modificar el service
     public ResponseEntity<Client> putMethodName(@PathVariable int id, @RequestBody ClientDTO client) {
-        Optional<Client> optionalClient = clientService.update(client.getClient(), client.getSalesRepId()) ;
+        Optional<Client> optionalClient = clientService.update(id,client.getClient(), client.getSalesRepId()) ;
         return optionalClient.map(clientl -> new ResponseEntity<>(clientl, HttpStatus.OK))
                             .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
