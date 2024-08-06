@@ -1,8 +1,6 @@
 package com.nasefa.springfinalproject.persistence.entities.client;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,6 +40,7 @@ public class Client {
     private Employee salesRep;
 
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JsonIgnore
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", orphanRemoval = true)

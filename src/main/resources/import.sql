@@ -107,8 +107,6 @@ INSERT INTO payments (id_client, id_payment_type, pay_date, total) VALUES (5, 5,
 INSERT INTO payments (id_client, id_payment_type, pay_date, total) VALUES (6, 6, '2024-08-06', 640.00);
 INSERT INTO payments (id_client, id_payment_type, pay_date, total) VALUES (7, 7, '2024-08-07', 55.00);
 INSERT INTO payments (id_client, id_payment_type, pay_date, total) VALUES (8, 8, '2024-08-08', 90.00);
-INSERT INTO payments (id_client, id_payment_type, pay_date, total) VALUES (9, 9, '2024-08-09', 70.00);
-INSERT INTO payments (id_client, id_payment_type, pay_date, total) VALUES (10, 10, '2024-08-10', 200.00);
 
 INSERT INTO orders (order_code, id_client, id_status, order_date, waited_date, deliver_date, commentary) VALUES ('ORD001', 1, 1, '2024-08-01 14:30:00', '2024-08-02', '2024-08-05', 'Urgent delivery requested');
 INSERT INTO orders (order_code, id_client, id_status, order_date, waited_date, deliver_date, commentary) VALUES ('ORD002', 2, 2, '2024-08-02 09:00:00', '2024-08-03', '2024-08-07', NULL);
