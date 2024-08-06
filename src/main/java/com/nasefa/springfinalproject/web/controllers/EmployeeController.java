@@ -69,8 +69,13 @@ public class EmployeeController {
     }
     
     @PostMapping
-    public ResponseEntity<Employee> create(@RequestBody Employee employee) {
-        Employee savedEmployee = employeeService.save(employee);
+    public ResponseEntity<Employee> createPayment(@RequestBody EmployeeUpdateDTO employee) {
+        Employee savedEmployee = employeeService.save(employee.getUpdatedEmployee(), employee.getIdBoss(),employee.getIdOffice(),employee.getIdPosition());
+
+        if (savedEmployee.getId() == 0) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
 

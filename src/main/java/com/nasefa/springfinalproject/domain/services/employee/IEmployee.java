@@ -11,7 +11,7 @@ public interface IEmployee {
     List<Employee> findAllByOffice(Office office);
     List<Employee> findSalesRep();
     Optional<Employee> findById(int id);
-    Employee save(Employee employee);
+    Employee save(Employee employee, int idBoss, int idOffice, int idPosition);
     Optional<Employee> update(int id, Employee employee, int idPosition, int idOffice, int idBoss);
     Optional<Employee> delete(int id);
 }

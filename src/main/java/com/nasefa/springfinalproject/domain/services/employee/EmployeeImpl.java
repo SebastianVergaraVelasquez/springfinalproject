@@ -31,7 +31,7 @@ public class EmployeeImpl implements IEmployee {
     }
 
     @Override
-    public List<Employee> findSalesRep(){
+    public List<Employee> findSalesRep() {
         return employeeRepository.salesReps();
     }
 
@@ -41,30 +41,41 @@ public class EmployeeImpl implements IEmployee {
     }
 
     @Override
-    public Employee save(Employee employee) {
+    public Employee save(Employee employee, int idBoss, int idOffice, int idPosition) {
+        Optional<Employee> bossOpt = employeeRepository.findById(idBoss);
+        Optional<Office> officeOptional = officeRepository.findById(idOffice);
+        Optional<EmployeePosition> positionOptional = emPositionRepository.findById(idPosition);
+
+        if (bossOpt.isEmpty()) {
+            return new Employee();
+        }
+        employee.setBoss(bossOpt.get());
+        employee.setOffice(officeOptional.get());
+        employee.setPosition(positionOptional.get());
+
         return employeeRepository.save(employee);
     }
 
     @Override
     public Optional<Employee> update(int id, Employee updatedEmployee, int idBoss, int idOffice, int idPosition) {
-        Optional<Employee> employeeOptional = employeeRepository.findById(id);
-        employeeOptional.ifPresentOrElse(
-                employee -> {
-                    employee.setName(updatedEmployee.getName());
-                    employee.setLastName(updatedEmployee.getLastName());
-                    employee.setEmail(updatedEmployee.getEmail());
-                    Optional<EmployeePosition> optionalPosition = emPositionRepository.findById(idPosition);
-                    employee.setPosition(optionalPosition.get());
-                    Optional<Office> optionalOffice = officeRepository.findById(idOffice);
-                    employee.setOffice(optionalOffice.get());
-                    Optional<Employee> optionalBoss = employeeRepository.findById(idBoss);
-                    employee.setBoss(optionalBoss.get());
 
-                    employeeRepository.save(employee);
-                }, () -> {
-                    System.out.println("office not registered");
-                });
-        return employeeOptional;
+        Optional<Employee> bossOpt = employeeRepository.findById(idBoss);
+        if (bossOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        Employee employee = employeeRepository.findById(id).get();
+
+        employee.setName(updatedEmployee.getName());
+        employee.setLastName(updatedEmployee.getLastName());
+        employee.setEmail(updatedEmployee.getEmail());
+        Optional<EmployeePosition> optionalPosition = emPositionRepository.findById(idPosition);
+        employee.setPosition(optionalPosition.get());
+        Optional<Office> optionalOffice = officeRepository.findById(idOffice);
+        employee.setOffice(optionalOffice.get());
+        employee.setBoss(bossOpt.get());
+
+        Employee savedEmployee = employeeRepository.save(employee);
+        return Optional.of(savedEmployee);
     }
 
     @Override
