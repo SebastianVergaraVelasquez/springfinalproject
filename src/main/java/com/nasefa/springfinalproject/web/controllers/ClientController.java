@@ -32,14 +32,14 @@ public class ClientController {
     @Autowired
     private IEmployee employeeService;
 
-    @GetMapping("/employees")
+    @GetMapping
     public List<Client> getall() {
         return clientService.findAllClientsWithDetails(); 
     }
 
-    @GetMapping
+    @GetMapping("/employee")
     public List<Employee> getSalesRep() {
-        return employeeService.findAll();
+        return employeeService.findSalesRep();
     }
     
     @GetMapping("/order/{status}")

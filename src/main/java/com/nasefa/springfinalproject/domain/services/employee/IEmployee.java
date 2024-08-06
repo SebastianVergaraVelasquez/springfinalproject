@@ -9,6 +9,7 @@ import com.nasefa.springfinalproject.persistence.entities.office.Office;
 public interface IEmployee {
     List<Employee> findAll();
     List<Employee> findAllByOffice(Office office);
+    List<Employee> findSalesRep();
     Optional<Employee> findById(int id);
     Employee save(Employee employee);
     Optional<Employee> update(int id, Employee employee, int idPosition, int idOffice, int idBoss);

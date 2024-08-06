@@ -31,6 +31,11 @@ public class EmployeeImpl implements IEmployee {
     }
 
     @Override
+    public List<Employee> findSalesRep(){
+        return employeeRepository.salesReps();
+    }
+
+    @Override
     public Optional<Employee> findById(int id) {
         return employeeRepository.findById(id);
     }
