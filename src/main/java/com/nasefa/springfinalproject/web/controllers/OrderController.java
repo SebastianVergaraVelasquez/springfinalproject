@@ -16,12 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nasefa.springfinalproject.domain.services.client.IClient;
 import com.nasefa.springfinalproject.domain.services.order.IOrder;
 import com.nasefa.springfinalproject.domain.services.status.IStatus;
 import com.nasefa.springfinalproject.persistence.entities.Status;
-import com.nasefa.springfinalproject.persistence.entities.client.Client;
-import com.nasefa.springfinalproject.persistence.entities.client.ClientDTO;
 import com.nasefa.springfinalproject.persistence.entities.order.Order;
 import com.nasefa.springfinalproject.persistence.entities.order.OrderDTO;
 
@@ -31,9 +28,6 @@ public class OrderController {
 
     @Autowired
     private IOrder orderService;
-
-    @Autowired
-    private IClient clientService;
 
     @Autowired
     private IStatus statusService;
@@ -69,9 +63,9 @@ public class OrderController {
     }
     
     @PutMapping("/{id}") //verificar para poner orderDTO
-    public ResponseEntity<Client> putMethodName(@PathVariable int id, @RequestBody ClientDTO client) {
-        Optional<Client> optionalClient = clientService.update(client.getClient(), client.getSalesRepId()) ;
-        return optionalClient.map(clientl -> new ResponseEntity<>(clientl, HttpStatus.OK))
+    public ResponseEntity<Order> putMethodName(@PathVariable String id, @RequestBody OrderDTO order) {
+        Optional<Order> optOrder = orderService.update(id, order.getOrder(), order.getClientId(), order.getStatusId()) ;
+        return optOrder.map(orderl -> new ResponseEntity<>(orderl, HttpStatus.OK))
                             .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
