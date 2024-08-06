@@ -87,11 +87,11 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id) {
-        Optional<Employee> optionalEmployee = employeeService.delete(id);
-        return optionalEmployee.map(employee -> new ResponseEntity<Void>(HttpStatus.NO_CONTENT))
-                            .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<Void> deletePayment(@PathVariable int id) {
+        Optional<Employee> deletedEmployee = employeeService.delete(id);
+        if (deletedEmployee.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-    
-
 }
