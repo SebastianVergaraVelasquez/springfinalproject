@@ -13,5 +13,6 @@ public interface IProduct {
     List<Product> findByLessStockThan(int maxStock);
     Optional<Product> findById(String productCode);
     Product save(Product product, String gammaCode);
+    Optional<Product> update(String productCode, Product product, String gammaCode);
     Optional<Product> delete(String productCode);
 }

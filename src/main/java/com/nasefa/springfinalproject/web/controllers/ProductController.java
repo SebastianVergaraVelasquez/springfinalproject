@@ -2,7 +2,6 @@ package com.nasefa.springfinalproject.web.controllers;
 
 import com.nasefa.springfinalproject.domain.services.gamma.IGamma;
 import com.nasefa.springfinalproject.persistence.entities.Gamma;
-import com.nasefa.springfinalproject.persistence.entities.payment.Payment;
 import com.nasefa.springfinalproject.persistence.entities.product.ProductDTO;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,16 +65,17 @@ public class ProductController {
         return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
     }
     
-    @PutMapping
-    public ResponseEntity<Product> putMethodName(@RequestBody ProductDTO product) {
-        Product savedProduct = productService.save(product.getProduct(), product.getGammaCode());
-        return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
+    @PutMapping("/{productCode}")
+    public ResponseEntity<Product> putMethodName(@PathVariable String productCode, @RequestBody ProductDTO product) {
+        Optional<Product> optionalProduct = productService.update(productCode, product.getProduct(), product.getGammaCode());
+        return optionalProduct.map(productl -> new ResponseEntity<>(productl, HttpStatus.OK))
+                            .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{productCode}")
     public ResponseEntity<Void> deletePayment(@PathVariable String productCode) {
-        Optional<Product> deletedPayment = productService.delete(productCode);
-        if (deletedPayment.isEmpty()) {
+        Optional<Product> deletedProduct = productService.delete(productCode);
+        if (deletedProduct.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
