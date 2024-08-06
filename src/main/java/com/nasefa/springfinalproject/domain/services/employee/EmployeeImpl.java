@@ -36,6 +36,12 @@ public class EmployeeImpl implements IEmployee {
     }
 
     @Override
+    public List<Employee> findAllByOffice(Office office) {
+        Optional<Office> officeOptional = officeRepository.findById(office.getId());
+        return employeeRepository.findByOffice(officeOptional.get());
+    }
+
+    @Override
     public Optional<Employee> findById(int id) {
         return employeeRepository.findById(id);
     }
@@ -81,21 +87,11 @@ public class EmployeeImpl implements IEmployee {
     @Override
     public Optional<Employee> delete(int id) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(id);
-        optionalEmployee.ifPresentOrElse(
-                product -> {
-                    employeeRepository.delete(optionalEmployee.get());
-                    ;
-                },
-                () -> {
-                    System.out.println("office not registered");
-                });
+        if (optionalEmployee.isEmpty()) {
+            return Optional.empty();
+        }
+        employeeRepository.delete(optionalEmployee.get());
         return optionalEmployee;
-    }
-
-    @Override
-    public List<Employee> findAllByOffice(Office office) {
-        Optional<Office> officeOptional = officeRepository.findById(office.getId());
-        return employeeRepository.findByOffice(officeOptional.get());
     }
 
 }
