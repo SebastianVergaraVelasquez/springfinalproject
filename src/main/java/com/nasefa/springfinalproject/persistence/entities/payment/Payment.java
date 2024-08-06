@@ -1,7 +1,8 @@
-package com.nasefa.springfinalproject.persistence.entities;
+package com.nasefa.springfinalproject.persistence.entities.payment;
 
 import java.sql.Date;
 
+import com.nasefa.springfinalproject.persistence.entities.PaymentType;
 import com.nasefa.springfinalproject.persistence.entities.client.Client;
 
 import jakarta.persistence.Column;

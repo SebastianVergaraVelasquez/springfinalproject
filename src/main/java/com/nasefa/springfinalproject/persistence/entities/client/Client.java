@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nasefa.springfinalproject.persistence.entities.Address;
-import com.nasefa.springfinalproject.persistence.entities.Payment;
+import com.nasefa.springfinalproject.persistence.entities.payment.Payment;
 import com.nasefa.springfinalproject.persistence.entities.employee.Employee;
 import com.nasefa.springfinalproject.persistence.entities.order.Order;
 

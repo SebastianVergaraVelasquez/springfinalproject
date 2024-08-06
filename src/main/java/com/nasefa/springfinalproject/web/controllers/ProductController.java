@@ -2,6 +2,7 @@ package com.nasefa.springfinalproject.web.controllers;
 
 import com.nasefa.springfinalproject.domain.services.gamma.IGamma;
 import com.nasefa.springfinalproject.persistence.entities.Gamma;
+import com.nasefa.springfinalproject.persistence.entities.payment.Payment;
 import com.nasefa.springfinalproject.persistence.entities.product.ProductDTO;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,14 +41,14 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/productsgamma")
-    public List<Product> getByGamma(@RequestParam String gammaCode){
+    @GetMapping("/gamma")
+    public List<Product> getByGamma(@PathVariable String gammaCode){
         Optional<Gamma> optionalGamma = gammaService.findById(gammaCode);
         return productService.findByGamma(optionalGamma.get());
     }
 
-    @GetMapping("/producslessstock")
-    public List<Product> getLessStock(@RequestParam int maxStock){
+    @GetMapping("/stock/{maxStock}")
+    public List<Product> getLessStock(@PathVariable int maxStock){
         return  productService.findByLessStockThan(maxStock);
     }
 
@@ -63,21 +64,21 @@ public class ProductController {
     public ResponseEntity<Product> postMethodName(@RequestBody ProductDTO product) {
         Product savedProduct = productService.save(product.getProduct(), product.getGammaCode());
         return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
-        
     }
     
-    @PutMapping("/{productCode}")
-    public ResponseEntity<Product> putMethodName(@PathVariable String productCode, @RequestBody ProductDTO product) {
-        Optional<Product> optionalProduct = productService.update(productCode, product.getProduct(), product.getGammaCode());
-        return optionalProduct.map(gamma -> new ResponseEntity<>(gamma, HttpStatus.OK))
-                            .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @PutMapping
+    public ResponseEntity<Product> putMethodName(@RequestBody ProductDTO product) {
+        Product savedProduct = productService.save(product.getProduct(), product.getGammaCode());
+        return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{productCode}")
-    public ResponseEntity<Void> delete(@PathVariable String productCode){
-        Optional<Product> optionalProduct = productService.delete(productCode);
-        return optionalProduct.map(gamma -> new ResponseEntity<Void>(HttpStatus.NO_CONTENT))
-                            .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<Void> deletePayment(@PathVariable String productCode) {
+        Optional<Product> deletedPayment = productService.delete(productCode);
+        if (deletedPayment.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     
 }

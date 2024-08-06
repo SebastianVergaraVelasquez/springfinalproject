@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.nasefa.springfinalproject.domain.repositories.GammaRepository;
+import com.nasefa.springfinalproject.persistence.entities.payment.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,46 +53,12 @@ public class ProductImpl implements IProduct {
     }
 
     @Override
-    public Optional<Product> update(String productCode, Product updatedProduct, String gammaCode) {
-        Optional<Product> optionalProduct = productRepository.findById(productCode);
-        optionalProduct.ifPresentOrElse(
-                product -> {
-                    product.setName(updatedProduct.getName());
-                    Optional<Gamma> optionalGamma = gammaRepository.findById(gammaCode);
-                    product.setGamma(optionalGamma.get());
-                    product.setStock(updatedProduct.getStock());
-                    product.setPrice(updatedProduct.getPrice());
-                    product.setDescription(updatedProduct.getDescription());
-                    product.setDepth(updatedProduct.getDepth());
-                    product.setHeight(updatedProduct.getHeight());
-                    product.setWidth(updatedProduct.getWidth());
-                    if (updatedProduct.getOrdersDetails() != null) {
-                        // Limpiar la lista existente
-                        product.getOrdersDetails().clear();
-                        // Agregar los productos nuevos (si no está vacía)
-                        if (!updatedProduct.getOrdersDetails().isEmpty()) {
-                            product.getOrdersDetails().addAll(updatedProduct.getOrdersDetails());
-                        }
-                    }
-                    productRepository.save(product);
-                }, () -> {
-                    System.out.println("product not registered");
-                });
-        return optionalProduct;
-    }
-
-    @Override
     public Optional<Product> delete(String productCode) {
-        Optional<Product> optionalProduct = productRepository.findById(productCode);
-        optionalProduct.ifPresentOrElse(
-                product -> {
-                    productRepository.delete(optionalProduct.get());
-                    ;
-                },
-                () -> {
-                    System.out.println("product not registered");
-                });
-        return optionalProduct;
+        Optional<Product> optProduct = productRepository.findById(productCode);
+        if (optProduct.isEmpty()) {
+            return Optional.empty();
+        }
+        productRepository.delete(optProduct.get());
+        return optProduct;
     }
-
 }
