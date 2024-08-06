@@ -1,9 +1,12 @@
-package com.nasefa.springfinalproject.persistence.entities;
+package com.nasefa.springfinalproject.persistence.entities.client;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nasefa.springfinalproject.persistence.entities.Address;
+import com.nasefa.springfinalproject.persistence.entities.Order;
+import com.nasefa.springfinalproject.persistence.entities.Payment;
 import com.nasefa.springfinalproject.persistence.entities.employee.Employee;
 
 import jakarta.persistence.CascadeType;

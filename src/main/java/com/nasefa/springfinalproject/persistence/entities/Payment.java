@@ -2,6 +2,8 @@ package com.nasefa.springfinalproject.persistence.entities;
 
 import java.sql.Date;
 
+import com.nasefa.springfinalproject.persistence.entities.client.Client;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

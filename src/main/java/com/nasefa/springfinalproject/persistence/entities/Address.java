@@ -1,5 +1,7 @@
 package com.nasefa.springfinalproject.persistence.entities;
 
+import com.nasefa.springfinalproject.persistence.entities.client.Client;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
