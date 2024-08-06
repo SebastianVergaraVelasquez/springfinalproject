@@ -1,10 +1,12 @@
-package com.nasefa.springfinalproject.persistence.entities;
+package com.nasefa.springfinalproject.persistence.entities.order;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nasefa.springfinalproject.persistence.entities.OrdersDetail;
+import com.nasefa.springfinalproject.persistence.entities.Status;
 import com.nasefa.springfinalproject.persistence.entities.client.Client;
 
 import jakarta.persistence.CascadeType;

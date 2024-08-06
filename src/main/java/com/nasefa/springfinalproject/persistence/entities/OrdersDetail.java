@@ -1,5 +1,6 @@
 package com.nasefa.springfinalproject.persistence.entities;
 
+import com.nasefa.springfinalproject.persistence.entities.order.Order;
 import com.nasefa.springfinalproject.persistence.entities.product.Product;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
