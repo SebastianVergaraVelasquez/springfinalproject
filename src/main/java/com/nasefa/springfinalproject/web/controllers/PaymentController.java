@@ -4,8 +4,10 @@ import com.nasefa.springfinalproject.domain.services.client.IClient;
 import com.nasefa.springfinalproject.domain.services.payment.IPayment;
 import com.nasefa.springfinalproject.domain.services.paytype.IPaymentType;
 import com.nasefa.springfinalproject.persistence.entities.payment.Payment;
+import com.nasefa.springfinalproject.persistence.entities.payment.PaymentDTO;
 import com.nasefa.springfinalproject.persistence.entities.PaymentType;
 import com.nasefa.springfinalproject.persistence.entities.client.Client;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,39 +30,40 @@ public class PaymentController {
     private IPaymentType payTypeService;
 
     @GetMapping
-    public List<Payment> getAllDetails(){
+    public List<Payment> getAllDetails() {
         return paymentService.findAllByDetails();
     }
 
     @GetMapping("/client/{clientId}")
-    public List<Payment> getAllByClient(@PathVariable int clientId){
+    public List<Payment> getAllByClient(@PathVariable int clientId) {
         Optional<Client> optClient = clientService.findById(clientId);
         return paymentService.findByClient(optClient.get());
     }
 
     @GetMapping("/payType/{payTypeId}")
-    public List<Payment> getAllByPayType(@PathVariable int payTypeId){
-        Optional<PaymentType> optType= payTypeService.findById(payTypeId);
+    public List<Payment> getAllByPayType(@PathVariable int payTypeId) {
+        Optional<PaymentType> optType = payTypeService.findById(payTypeId);
         return paymentService.findByPayType(optType.get());
     }
 
-//    @PostMapping("/payments")
-//    public ResponseEntity<Payment> createPayment(@RequestBody PaymentDTO payment) {
-//        Payment savedPayment = paymentService.save(payment.getPayment(),payment.getClientId(),payment.getPayTypeId());
-//
-//        return savedPayment
-//                .map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-//    }
-//
-//    @PutMapping("/payments")
-//    public ResponseEntity<Payment> updatePayment(@RequestBody PaymentDTO payment) {
-//        Optional<Payment> savedPayment = paymentService.save(payment.getPayment(),payment.getClientId(),payment.getPayTypeId());
-//
-//        return savedPayment
-//                .map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-//    }
+    @PostMapping
+    public ResponseEntity<Payment> createPayment(@RequestBody PaymentDTO payment) {
+        Payment savedPayment = paymentService.save(payment.getPayment(), payment.getClientId(), payment.getPayTypeId());
+
+        if (savedPayment.getId() == 0) {
+            // Payment vacío significa que el cliente o el tipo de pago no se encontraron
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(savedPayment, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}") // Vrificar qué datos vamos a mandar para modificar el service
+    public ResponseEntity<Payment> putMethodName(@PathVariable int id, @RequestBody PaymentDTO paymentDTO) {
+        Optional<Payment> optPayment = paymentService.update(id, paymentDTO.getPayment(), paymentDTO.getClientId(), paymentDTO.getPayTypeId());
+        return optPayment.map(pay -> new ResponseEntity<>(pay, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
     @DeleteMapping("/payments/{id}")
     public ResponseEntity<Void> deletePayment(@PathVariable int id) {

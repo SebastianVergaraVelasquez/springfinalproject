@@ -12,6 +12,7 @@ public interface IPayment {
     List<Payment> findByClient(Client client);
     List<Payment> findByPayType(PaymentType payType);
     Optional<Payment> findById(int id);
-//    Payment save(Payment payment, int clientId, int payTypeId);
+    Payment save(Payment payment, int clientId, int payTypeId);
+    Optional<Payment> update(int paymentId, Payment payment, int clientId, int payTypeId);
     Optional<Payment> delete(int id);
 }

@@ -3,6 +3,7 @@ package com.nasefa.springfinalproject.persistence.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nasefa.springfinalproject.persistence.entities.payment.Payment;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -23,6 +24,7 @@ public class PaymentType {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "paymentType")
+    @JsonIgnore
     private List<Payment> paymenntTypes;
 
     public PaymentType() {
