@@ -13,7 +13,7 @@ INSERT INTO employee_positions (name) VALUES ('Store Manager');
 INSERT INTO employee_positions (name) VALUES ('Sales Associate');
 INSERT INTO employee_positions (name) VALUES ('Warehouse Worker');
 INSERT INTO employee_positions (name) VALUES ('Customer Service');
-INSERT INTO employee_positions (name) VALUES ('Garden Specialist');
+INSERT INTO employee_positions (name) VALUES ('Sales Agent');
 INSERT INTO employee_positions (name) VALUES ('Cashier');
 INSERT INTO employee_positions (name) VALUES ('Logistics Coordinator');
 INSERT INTO employee_positions (name) VALUES ('Inventory Manager');

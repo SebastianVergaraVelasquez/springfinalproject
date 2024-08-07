@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.nasefa.springfinalproject.domain.repositories.ClientRepository;
 import com.nasefa.springfinalproject.domain.repositories.OrderRepository;
+import com.nasefa.springfinalproject.domain.repositories.OrdersDetailRepository;
 import com.nasefa.springfinalproject.domain.repositories.StatusRepository;
+import com.nasefa.springfinalproject.persistence.entities.OrdersDetail;
 import com.nasefa.springfinalproject.persistence.entities.Status;
 import com.nasefa.springfinalproject.persistence.entities.client.Client;
 import com.nasefa.springfinalproject.persistence.entities.order.Order;
@@ -27,6 +29,9 @@ public class OrderImpl implements IOrder {
 
     @Autowired
     private StatusRepository statusRepository;
+
+    @Autowired
+    private OrdersDetailRepository detailsRepository;
 
     @Override
     public List<Order> findAll() {
@@ -53,6 +58,9 @@ public class OrderImpl implements IOrder {
         Optional<Client> optionalClient = clientRepository.findById(orderDTO.getClientId());
         if (optionalClient.isEmpty()) {
             return new Order();
+        }
+        for (OrdersDetail details : orderDTO.getDetails()) {
+            detailsRepository.save(details);
         }
 
         orderDTO.getOrder().setClient(optionalClient.get());
