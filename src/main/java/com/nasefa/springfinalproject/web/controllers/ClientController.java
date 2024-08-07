@@ -61,7 +61,12 @@ public class ClientController {
 
     @PostMapping
     public ResponseEntity<Client> postMethodName(@RequestBody ClientDTO client) {
-        Client savedClient = clientService.save(client.getClient(), client.getSalesRepId());
+        Client savedClient = clientService.save(client);
+
+        if (savedClient.getId() == 0) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         return new ResponseEntity<>(savedClient, HttpStatus.CREATED);
         
     }
@@ -75,9 +80,11 @@ public class ClientController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id){
-        Optional<Client> optionalClient = clientService.delete(id);
-        return optionalClient.map(clientl -> new ResponseEntity<Void>(HttpStatus.NO_CONTENT))
-                            .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Optional<Client> deletedClient = clientService.delete(id);
+        if (deletedClient.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 

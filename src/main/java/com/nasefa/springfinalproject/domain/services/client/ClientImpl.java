@@ -6,9 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nasefa.springfinalproject.domain.repositories.AddressRepository;
 import com.nasefa.springfinalproject.domain.repositories.ClientRepository;
 import com.nasefa.springfinalproject.domain.repositories.EmployeeRepository;
+import com.nasefa.springfinalproject.domain.services.city.ICity;
+import com.nasefa.springfinalproject.persistence.entities.Address;
+import com.nasefa.springfinalproject.persistence.entities.City;
 import com.nasefa.springfinalproject.persistence.entities.client.Client;
+import com.nasefa.springfinalproject.persistence.entities.client.ClientDTO;
 import com.nasefa.springfinalproject.persistence.entities.employee.Employee;
 
 @Service
@@ -17,14 +22,14 @@ public class ClientImpl implements IClient {
     @Autowired
     private ClientRepository clientRepository;
 
-    // @Autowired
-    // private ICity cityRepository;
+    @Autowired
+    private ICity cityRepository;
 
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    // @Autowired
-    // private AddressRepository addressRepository; //verificar luego el editar de
+    @Autowired
+    private AddressRepository addressRepository; //verificar luego el editar de
     // address
 
     @Override
@@ -48,10 +53,22 @@ public class ClientImpl implements IClient {
     }
 
     @Override
-    public Client save(Client client, int salesRepId) {
-        Optional<Employee> optionalEmployee = employeeRepository.findById(salesRepId);
-        client.setSalesRep(optionalEmployee.get());
-        return clientRepository.save(client);
+    public Client save(ClientDTO clientDTO) {
+
+        Optional<Employee> optionalEmployee = employeeRepository.findById(clientDTO.getSalesRepId());
+        if (optionalEmployee.isEmpty()) {
+            return new Client();
+        }
+        Address address = new Address();
+        Optional<City> cityOptional = cityRepository.findById(clientDTO.getCityId());
+        address.setClient(clientDTO.getClient());
+        address.setCity(cityOptional.get());
+        address.setDescription(clientDTO.getAddressDesc());
+        Address savedAddress = addressRepository.save(address);
+
+        clientDTO.getClient().setSalesRep(optionalEmployee.get());
+        clientDTO.getClient().setAddress(savedAddress);
+        return clientRepository.save(clientDTO.getClient());
     }
 
     // @Override
@@ -131,15 +148,11 @@ public class ClientImpl implements IClient {
 
     @Override
     public Optional<Client> delete(int id) {
-        Optional<Client> optionalClient = clientRepository.findById(id);
-        optionalClient.ifPresentOrElse(
-                product -> {
-                    clientRepository.delete(optionalClient.get());
-                    ;
-                },
-                () -> {
-                    System.out.println("product not registered");
-                });
-        return optionalClient;
+        Optional<Client> clientOptional = clientRepository.findById(id);
+        if (clientOptional.isEmpty()) {
+            return Optional.empty();
+        }
+        clientRepository.delete(clientOptional.get());
+        return clientOptional;
     }
 }

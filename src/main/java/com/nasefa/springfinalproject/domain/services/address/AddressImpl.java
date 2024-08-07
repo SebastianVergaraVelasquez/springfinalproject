@@ -19,4 +19,11 @@ public class AddressImpl implements IAddress {
     public Optional<Address> findByClient(Client client) {
         return addressRepository.findByClient(client);
     }
+
+    @Override
+    public Address save(Address address) {
+        return addressRepository.save(address);
+    }
+
+    
 }
