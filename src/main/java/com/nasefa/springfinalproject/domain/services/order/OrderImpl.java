@@ -10,12 +10,11 @@ import org.springframework.stereotype.Service;
 import com.nasefa.springfinalproject.domain.repositories.ClientRepository;
 import com.nasefa.springfinalproject.domain.repositories.OrderRepository;
 import com.nasefa.springfinalproject.domain.repositories.StatusRepository;
-import com.nasefa.springfinalproject.persistence.entities.PaymentType;
 import com.nasefa.springfinalproject.persistence.entities.Status;
 import com.nasefa.springfinalproject.persistence.entities.client.Client;
 import com.nasefa.springfinalproject.persistence.entities.order.Order;
 import com.nasefa.springfinalproject.persistence.entities.order.OrderDTO;
-import com.nasefa.springfinalproject.persistence.entities.payment.Payment;
+
 
 @Service
 public class OrderImpl implements IOrder {

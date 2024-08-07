@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nasefa.springfinalproject.domain.services.city.ICity;
 import com.nasefa.springfinalproject.domain.services.client.IClient;
 import com.nasefa.springfinalproject.domain.services.employee.IEmployee;
+import com.nasefa.springfinalproject.persistence.entities.City;
 import com.nasefa.springfinalproject.persistence.entities.client.Client;
 import com.nasefa.springfinalproject.persistence.entities.client.ClientDTO;
 import com.nasefa.springfinalproject.persistence.entities.employee.Employee;
+
 
 
 @RestController
@@ -31,6 +34,9 @@ public class ClientController {
 
     @Autowired
     private IEmployee employeeService;
+
+    @Autowired
+    private ICity cityService;
 
     @GetMapping
     public List<Client> getall() {
@@ -46,6 +52,12 @@ public class ClientController {
     public List<Client> getByStatus(@PathVariable String status){
         return clientService.findAllClientsByOrderStatus(status);
     }
+
+    @GetMapping("/cities")
+    public List<City> allCities() {
+        return cityService.findAll();
+    }
+    
 
     @GetMapping("/city/{id}")
     public List<Client> getLessStock(@PathVariable int id){

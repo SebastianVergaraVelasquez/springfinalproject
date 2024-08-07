@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nasefa.springfinalproject.persistence.entities.OrdersDetail;
 import com.nasefa.springfinalproject.persistence.entities.Status;
 import com.nasefa.springfinalproject.persistence.entities.client.Client;
