@@ -3,6 +3,7 @@ package com.nasefa.springfinalproject.web.controllers;
 import com.nasefa.springfinalproject.domain.services.client.IClient;
 import com.nasefa.springfinalproject.domain.services.payment.IPayment;
 import com.nasefa.springfinalproject.domain.services.paytype.IPaymentType;
+import com.nasefa.springfinalproject.persistence.entities.City;
 import com.nasefa.springfinalproject.persistence.entities.payment.Payment;
 import com.nasefa.springfinalproject.persistence.entities.payment.PaymentDTO;
 import com.nasefa.springfinalproject.persistence.entities.PaymentType;
@@ -45,7 +46,10 @@ public class PaymentController {
         Optional<PaymentType> optType = payTypeService.findById(payTypeId);
         return paymentService.findByPayType(optType.get());
     }
-
+    @GetMapping("/payType")
+    public List<PaymentType> allPaymentType() {
+        return payTypeService.findAll();
+    }
     @PostMapping
     public ResponseEntity<Payment> createPayment(@RequestBody PaymentDTO payment) {
         Payment savedPayment = paymentService.save(payment.getPayment(), payment.getClientId(), payment.getPayTypeId());
