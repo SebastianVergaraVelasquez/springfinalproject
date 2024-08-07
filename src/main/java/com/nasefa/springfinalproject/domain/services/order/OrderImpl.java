@@ -10,9 +10,12 @@ import org.springframework.stereotype.Service;
 import com.nasefa.springfinalproject.domain.repositories.ClientRepository;
 import com.nasefa.springfinalproject.domain.repositories.OrderRepository;
 import com.nasefa.springfinalproject.domain.repositories.StatusRepository;
+import com.nasefa.springfinalproject.persistence.entities.PaymentType;
 import com.nasefa.springfinalproject.persistence.entities.Status;
 import com.nasefa.springfinalproject.persistence.entities.client.Client;
 import com.nasefa.springfinalproject.persistence.entities.order.Order;
+import com.nasefa.springfinalproject.persistence.entities.order.OrderDTO;
+import com.nasefa.springfinalproject.persistence.entities.payment.Payment;
 
 @Service
 public class OrderImpl implements IOrder {
@@ -47,31 +50,44 @@ public class OrderImpl implements IOrder {
     }
 
     @Override
-    public Order save(Order order, int clientId, int statusId) {
-        Optional<Client> optionalClient = clientRepository.findById(clientId);
-        order.setClient(optionalClient.get());
-        Optional<Status> optStatus = statusRepository.findById(statusId);
-        order.setStatus(optStatus.get());
-        return orderRepository.save(order);
+    public Order save(OrderDTO orderDTO) {
+        Optional<Client> optionalClient = clientRepository.findById(orderDTO.getClientId());
+        if (optionalClient.isEmpty()) {
+            return new Order();
+        }
+
+        orderDTO.getOrder().setClient(optionalClient.get());
+        Optional<Status> optStatus = statusRepository.findById(orderDTO.getStatusId());
+        orderDTO.getOrder().setStatus(optStatus.get());
+        orderDTO.getOrder().setOrdersDetails(orderDTO.getDetails());
+        return orderRepository.save(orderDTO.getOrder());
     }
 
     @Override
-    public Optional<Order> update(String orderCode, Order order, int clientId, int statusId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public Optional<Order> update(String orderCode, OrderDTO orderDTO) {
+       Optional<Order> optOrder = orderRepository.findById(orderCode);
+
+        if (optOrder.isEmpty()) {
+            return Optional.empty(); 
+        }
+        Order order = optOrder.get();
+        order.setCommentary(orderDTO.getOrder().getCommentary());
+        order.setDeliverDate(orderDTO.getOrder().getDeliverDate());
+        order.setWaitedDate(orderDTO.getOrder().getWaitedDate());
+        Optional<Status> optStatus = statusRepository.findById(orderDTO.getStatusId());
+        order.setStatus(optStatus.get());
+        
+        Order savedOrder = orderRepository.save(order);
+        return Optional.of(savedOrder);
     }
 
     @Override
     public Optional<Order> delete(String orderCode) {
         Optional<Order> optionalOrder = orderRepository.findById(orderCode);
-        optionalOrder.ifPresentOrElse(
-                product -> {
-                    orderRepository.delete(optionalOrder.get());
-                    ;
-                },
-                () -> {
-                    System.out.println("product not registered");
-                });
+        if (optionalOrder.isEmpty()) {
+            return Optional.empty();
+        }
+        orderRepository.delete(optionalOrder.get());
         return optionalOrder;
     }
 }

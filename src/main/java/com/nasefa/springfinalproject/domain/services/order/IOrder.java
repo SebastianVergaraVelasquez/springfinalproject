@@ -6,13 +6,14 @@ import java.util.Optional;
 
 import com.nasefa.springfinalproject.persistence.entities.Status;
 import com.nasefa.springfinalproject.persistence.entities.order.Order;
+import com.nasefa.springfinalproject.persistence.entities.order.OrderDTO;
 
 public interface IOrder {
     List<Order> findAll();
     List<Order> findByStatus(Status status);
     List<Order> findByDateBetween(Date start, Date end);
     Optional<Order> findById(String orderCode);
-    Order save(Order order, int clientId, int statusId);
-    Optional<Order> update(String orderCode, Order order, int clientId, int statusId);
+    Order save(OrderDTO orderDTO);
+    Optional<Order> update(String orderCode, OrderDTO orderDTO);
     Optional<Order> delete(String orderCode);
 }

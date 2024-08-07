@@ -57,22 +57,30 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<Order> postMethodName(@RequestBody OrderDTO order) {
-        Order saverOrder = orderService.save(order.getOrder(), order.getClientId(), order.getStatusId());
-        return new ResponseEntity<>(saverOrder, HttpStatus.CREATED);
+        Order savedOrder = orderService.save(order);
+
+        if (savedOrder.getOrderCode().isEmpty()) {
+            // Payment vacío significa que el cliente o el tipo de pago no se encontraron
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
         
     }
     
     @PutMapping("/{id}") //verificar para poner orderDTO
     public ResponseEntity<Order> putMethodName(@PathVariable String id, @RequestBody OrderDTO order) {
-        Optional<Order> optOrder = orderService.update(id, order.getOrder(), order.getClientId(), order.getStatusId()) ;
+        Optional<Order> optOrder = orderService.update(id, order) ;
         return optOrder.map(orderl -> new ResponseEntity<>(orderl, HttpStatus.OK))
                             .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id){
-        Optional<Order> optionalOrder = orderService.delete(id);
-        return optionalOrder.map(clientl -> new ResponseEntity<Void>(HttpStatus.NO_CONTENT))
-                            .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Optional<Order> deletedOrder = orderService.delete(id);
+        if (deletedOrder.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

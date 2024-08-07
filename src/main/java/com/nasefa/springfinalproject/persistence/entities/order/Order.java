@@ -38,7 +38,7 @@ public class Order {
     private String commentary;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order")
-    @JsonIgnore
+    // @JsonIgnore
     private List<OrdersDetail> ordersDetails;
 
     @ManyToOne
