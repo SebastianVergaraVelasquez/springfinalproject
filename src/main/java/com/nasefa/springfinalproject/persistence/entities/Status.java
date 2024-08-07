@@ -3,6 +3,7 @@ package com.nasefa.springfinalproject.persistence.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nasefa.springfinalproject.persistence.entities.order.Order;
 
 import jakarta.persistence.CascadeType;
@@ -24,6 +25,7 @@ public class Status {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "status")
+    @JsonIgnore
     private List<Order> orders;
 
     public Status() {   

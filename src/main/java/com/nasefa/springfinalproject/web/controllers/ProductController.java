@@ -40,7 +40,7 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/gamma")
+    @GetMapping("/gamma/{gammaCode}")
     public List<Product> getByGamma(@PathVariable String gammaCode){
         Optional<Gamma> optionalGamma = gammaService.findById(gammaCode);
         return productService.findByGamma(optionalGamma.get());

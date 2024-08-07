@@ -1,5 +1,6 @@
 package com.nasefa.springfinalproject.persistence.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nasefa.springfinalproject.persistence.entities.order.Order;
 import com.nasefa.springfinalproject.persistence.entities.product.Product;
 import jakarta.persistence.EmbeddedId;
@@ -19,11 +20,13 @@ public class OrdersDetail {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("orderCode")
+    @JsonIgnore
     @JoinColumn(name = "order_code")
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("productCode")
+    @JsonIgnore
     @JoinColumn(name = "product_code")
     private Product product;
 
