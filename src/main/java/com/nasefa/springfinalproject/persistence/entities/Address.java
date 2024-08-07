@@ -28,7 +28,7 @@ public class Address {
     private City city;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id", nullable = false)
+    @JoinColumn(name = "client_id")
     @JsonIgnore
     private Client client;
 

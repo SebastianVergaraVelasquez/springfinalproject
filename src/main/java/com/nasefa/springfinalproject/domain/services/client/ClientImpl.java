@@ -54,21 +54,33 @@ public class ClientImpl implements IClient {
 
     @Override
     public Client save(ClientDTO clientDTO) {
-
         Optional<Employee> optionalEmployee = employeeRepository.findById(clientDTO.getSalesRepId());
         if (optionalEmployee.isEmpty()) {
             return new Client();
         }
+
+        // Set the SalesRep to the Client
+        Client client = clientDTO.getClient();
+        client.setSalesRep(optionalEmployee.get());
+
+        // Save the Client without the Address first
+        Client savedClient = clientRepository.save(client);
+
+        // Now associate the Address with the saved Client
         Address address = new Address();
         Optional<City> cityOptional = cityRepository.findById(clientDTO.getCityId());
-        address.setClient(clientDTO.getClient());
-        address.setCity(cityOptional.get());
+        if (cityOptional.isPresent()) {
+            address.setCity(cityOptional.get());
+        }
+        address.setClient(savedClient);  // Set the saved Client to the Address
         address.setDescription(clientDTO.getAddressDesc());
+
+        // Save the Address
         Address savedAddress = addressRepository.save(address);
 
-        clientDTO.getClient().setSalesRep(optionalEmployee.get());
-        clientDTO.getClient().setAddress(savedAddress);
-        return clientRepository.save(clientDTO.getClient());
+        // Update the Client with the saved Address
+        savedClient.setAddress(savedAddress);
+        return clientRepository.save(savedClient);
     }
 
     // @Override
