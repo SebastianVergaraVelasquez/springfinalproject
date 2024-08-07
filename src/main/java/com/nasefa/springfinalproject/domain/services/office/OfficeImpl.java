@@ -17,7 +17,8 @@ public class OfficeImpl implements IOffice {
     @Autowired
     private OfficeRepository officeRepository;
 
-    @Autowired CityRepository cityRepository;
+    @Autowired
+    CityRepository cityRepository;
 
     @Override
     public List<Office> findAll() {
@@ -39,39 +40,34 @@ public class OfficeImpl implements IOffice {
     @Override
     public Optional<Office> update(int id, Office updatedOffice, int idCity) {
         Optional<Office> optionalOffice = officeRepository.findById(id);
-        optionalOffice.ifPresentOrElse(
-                office -> {
-                    Optional<City> cityOptional = cityRepository.findById(idCity);
-                    office.setCity(cityOptional.get());
-                    office.setAddres(updatedOffice.getAddres());
-                    office.setTelephone(updatedOffice.getTelephone());
-                    if (updatedOffice.getEmployees() != null) {
-                        // Limpiar la lista existente
-                        office.getEmployees().clear();
-                        // Agregar los productos nuevos (si no está vacía)
-                        if (!updatedOffice.getEmployees().isEmpty()) {
-                            office.getEmployees().addAll(updatedOffice.getEmployees());
-                        }
-                    }
-                    officeRepository.save(office);
-                }, () -> {
-                    System.out.println("office not registered");
-                });
-        return optionalOffice;
+        if (optionalOffice.isEmpty()) {
+            return Optional.empty();
+        }
+        Optional<City> cityOptional = cityRepository.findById(idCity);
+        Office office = optionalOffice.get();
+        office.setCity(cityOptional.get());
+        office.setAddres(updatedOffice.getAddres());
+        office.setTelephone(updatedOffice.getTelephone());
+        if (updatedOffice.getEmployees() != null) {
+            // Limpiar la lista existente
+            office.getEmployees().clear();
+            // Agregar los productos nuevos (si no está vacía)
+            if (!updatedOffice.getEmployees().isEmpty()) {
+                office.getEmployees().addAll(updatedOffice.getEmployees());
+            }
+        }
+        Office officeSaved = officeRepository.save(office);
+        return Optional.of(officeSaved);
     }
 
     @Override
     public Optional<Office> delete(int id) {
-        Optional<Office> optionalProduct = officeRepository.findById(id);
-        optionalProduct.ifPresentOrElse(
-                product -> {
-                    officeRepository.delete(optionalProduct.get());
-                    ;
-                },
-                () -> {
-                    System.out.println("office not registered");
-                });
-        return optionalProduct;
+        Optional<Office> optionalOffice = officeRepository.findById(id);
+        if (optionalOffice.isEmpty()) {
+            return Optional.empty();
+        }
+        officeRepository.delete(optionalOffice.get());
+        return optionalOffice;
     }
 
 }

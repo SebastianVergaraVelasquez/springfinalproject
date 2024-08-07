@@ -67,8 +67,10 @@ public class OfficeController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id) {
-        Optional<Office> optionalOffice = officeService.delete(id);
-        return optionalOffice.map(office -> new ResponseEntity<Void>(HttpStatus.NO_CONTENT))
-                            .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+       Optional<Office> deletedOffice = officeService.delete(id);
+        if (deletedOffice.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
