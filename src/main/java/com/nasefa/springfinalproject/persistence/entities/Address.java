@@ -1,5 +1,6 @@
 package com.nasefa.springfinalproject.persistence.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nasefa.springfinalproject.persistence.entities.client.Client;
 
 import jakarta.persistence.Entity;
@@ -28,6 +29,7 @@ public class Address {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
+    @JsonIgnore
     private Client client;
 
     public Address() {
