@@ -37,7 +37,7 @@ public class OrderController {
         return orderService.findAll(); 
     }
 
-    @GetMapping("/{status}")
+    @GetMapping("/status/{statusId}")
     public List<Order> getByStatus(@PathVariable int statusId){
         Optional<Status> optStatus = statusService.findById(statusId);
         return orderService.findByStatus(optStatus.get());
