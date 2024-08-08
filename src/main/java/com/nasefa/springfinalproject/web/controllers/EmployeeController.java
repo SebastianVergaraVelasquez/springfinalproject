@@ -62,8 +62,8 @@ public class EmployeeController {
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/employeesoffice")
-    public List<Employee> getByOffice(@RequestParam int id) {
+    @GetMapping("/employeesoffice/{id}")
+    public List<Employee> getByOffice(@PathVariable int id) {
         Optional<Office> optionalOffice = officeService.findById(id);
         return employeeService.findAllByOffice(optionalOffice.get());
     }
