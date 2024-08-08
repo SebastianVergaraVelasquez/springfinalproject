@@ -43,6 +43,11 @@ public class OrderController {
         return orderService.findByStatus(optStatus.get());
     }
 
+    @GetMapping("/status")
+    public List <Status> getMethodName() {
+        return statusService.findAll();
+    }
+
     @GetMapping("/date/{start}/{end}")
     public List<Order> getBetweenDate(@PathVariable Date start, @PathVariable Date end){
         return orderService.findByDateBetween(start, end);
