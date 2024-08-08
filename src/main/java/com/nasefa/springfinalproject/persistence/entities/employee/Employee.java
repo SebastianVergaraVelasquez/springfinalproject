@@ -43,7 +43,7 @@ public class Employee {
     private EmployeePosition position;
 
     //RELACION CON CLIENTES ONETOMANY
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "salesRep")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salesRep")
     @JsonIgnore
     private List<Client> clients;
 

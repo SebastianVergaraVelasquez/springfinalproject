@@ -10,6 +10,7 @@ import com.nasefa.springfinalproject.domain.repositories.EmployeePositionReposit
 import com.nasefa.springfinalproject.domain.repositories.EmployeeRepository;
 import com.nasefa.springfinalproject.domain.repositories.OfficeRepository;
 import com.nasefa.springfinalproject.persistence.entities.EmployeePosition;
+import com.nasefa.springfinalproject.persistence.entities.client.Client;
 import com.nasefa.springfinalproject.persistence.entities.employee.Employee;
 import com.nasefa.springfinalproject.persistence.entities.office.Office;
 
@@ -90,6 +91,10 @@ public class EmployeeImpl implements IEmployee {
         if (optionalEmployee.isEmpty()) {
             return Optional.empty();
         }
+        for (Client client : optionalEmployee.get().getClients()) {
+            client.setSalesRep(null);
+        }
+        optionalEmployee.get().getClients().clear();
         employeeRepository.delete(optionalEmployee.get());
         return optionalEmployee;
     }
