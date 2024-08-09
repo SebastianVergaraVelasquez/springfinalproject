@@ -47,7 +47,7 @@ public class Client {
     @JsonIgnore
      private Set<Payment> payment = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
     @JsonIgnore
     private Set<Order> orders = new HashSet<>();
 
