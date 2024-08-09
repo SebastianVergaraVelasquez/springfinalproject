@@ -82,7 +82,7 @@ INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (1,
 INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (2, 'Flower Power Ltd', 'Williams', 30000.00, 6);
 INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (3, 'Urban Garden Co', 'Taylor', 40000.00, 6);
 INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (4, 'Eco Plants', 'Anderson', 25000.00, 6);
-INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (5, 'Garden Wonders', 'Thomas', 35000.00, 6;
+INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (5, 'Garden Wonders', 'Thomas', 35000.00, 6);
 INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (6, 'Botanical Bliss', 'Clark', 27000.00, 6);
 INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (7, 'Nature’s Best', 'Rodriguez', 31000.00, 6);
 INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (8, 'Orchid Oasis', 'Lewis', 34000.00, 6);
