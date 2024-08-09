@@ -20,5 +20,12 @@ public interface EmployeeRepository extends CrudRepository<Employee,Integer> {
     // @Query("SELECT e FROM Employee e JOIN FETCH e.office JOIN FETCH e.position JOIN FETCH e.boss WHERE =:gammaCode")
     List<Employee> findByOffice(Office office);
 
+    @Query("SELECT DISTINCT e FROM Employee e " +
+       "JOIN e.clients c " +
+       "JOIN c.orders o " +
+       "WHERE o.status.id = 1 " +
+       "AND e.position.id = 5")
+    List<Employee> findEmployeesWithPendingOrders();
+
     
 }

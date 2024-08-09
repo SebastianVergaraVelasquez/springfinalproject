@@ -60,6 +60,18 @@ public class Order {
         return client;
     }
 
+    public Order(String orderCode, Timestamp orderDate, Date waitedDate, Date deliverDate, String commentary,
+            List<OrdersDetail> ordersDetails, Status status, Client client) {
+        this.orderCode = orderCode;
+        this.orderDate = orderDate;
+        this.waitedDate = waitedDate;
+        this.deliverDate = deliverDate;
+        this.commentary = commentary;
+        this.ordersDetails = ordersDetails;
+        this.status = status;
+        this.client = client;
+    }
+
     public void setClient(Client client) {
         this.client = client;
     }

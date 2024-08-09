@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 @RequestMapping("/garden/employee")
@@ -67,6 +65,12 @@ public class EmployeeController {
         Optional<Office> optionalOffice = officeService.findById(id);
         return employeeService.findAllByOffice(optionalOffice.get());
     }
+
+    @GetMapping("/pending")
+    public List<Employee> employeePending() {
+        return employeeService.findEmployeesWithPendingOrders();
+    }
+    
     
     @PostMapping
     public ResponseEntity<Employee> createPayment(@RequestBody EmployeeUpdateDTO employee) {

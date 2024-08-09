@@ -78,16 +78,16 @@ INSERT INTO employees (id, name, last_name, email, office_id, position_id, boss_
 INSERT INTO employees (id, name, last_name, email, office_id, position_id, boss_id) VALUES (9, 'Amanda', 'Taylor', 'amanda.taylor@example.com', 9, 8, 7);
 INSERT INTO employees (id, name, last_name, email, office_id, position_id, boss_id) VALUES (10, 'James', 'Anderson', 'james.anderson@example.com', 10, 3, 8);
 
-INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (1, 'Green Thumb Landscaping', 'Johnson', 50000.00, 1);
-INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (2, 'Flower Power Ltd', 'Williams', 30000.00, 2);
-INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (3, 'Urban Garden Co', 'Taylor', 40000.00, 3);
-INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (4, 'Eco Plants', 'Anderson', 25000.00, 4);
-INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (5, 'Garden Wonders', 'Thomas', 35000.00, 1);
-INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (6, 'Botanical Bliss', 'Clark', 27000.00, 2);
-INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (7, 'Nature’s Best', 'Rodriguez', 31000.00, 3);
-INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (8, 'Orchid Oasis', 'Lewis', 34000.00, 4);
-INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (9, 'Potted Paradise', 'Walker', 28000.00, 1);
-INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (10, 'Blooming Beauties', 'Hall', 29000.00, 2);
+INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (1, 'Green Thumb Landscaping', 'Johnson', 50000.00, 6);
+INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (2, 'Flower Power Ltd', 'Williams', 30000.00, 6);
+INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (3, 'Urban Garden Co', 'Taylor', 40000.00, 6);
+INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (4, 'Eco Plants', 'Anderson', 25000.00, 6);
+INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (5, 'Garden Wonders', 'Thomas', 35000.00, 6;
+INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (6, 'Botanical Bliss', 'Clark', 27000.00, 6);
+INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (7, 'Nature’s Best', 'Rodriguez', 31000.00, 6);
+INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (8, 'Orchid Oasis', 'Lewis', 34000.00, 6);
+INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (9, 'Potted Paradise', 'Walker', 28000.00, 6);
+INSERT INTO clients (id, name, last_name, credit_limit, id_sales_rep) VALUES (10, 'Blooming Beauties', 'Hall', 29000.00, 6);
 
 INSERT INTO addresses (client_id, city_id, description) VALUES (1, 1, 'Headquarters, New York');
 INSERT INTO addresses (client_id, city_id, description) VALUES (2, 2, 'Main Office, Los Angeles');

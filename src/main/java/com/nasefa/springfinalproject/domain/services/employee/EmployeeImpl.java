@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nasefa.springfinalproject.domain.repositories.EmployeePositionRepository;
 import com.nasefa.springfinalproject.domain.repositories.EmployeeRepository;
@@ -97,6 +98,11 @@ public class EmployeeImpl implements IEmployee {
         optionalEmployee.get().getClients().clear();
         employeeRepository.delete(optionalEmployee.get());
         return optionalEmployee;
+    }
+
+    @Override
+    public List<Employee> findEmployeesWithPendingOrders() {
+        return employeeRepository.findEmployeesWithPendingOrders();
     }
 
 }

@@ -10,6 +10,7 @@ public interface IEmployee {
     List<Employee> findAll();
     List<Employee> findAllByOffice(Office office);
     List<Employee> findSalesRep();
+    List<Employee> findEmployeesWithPendingOrders();
     Optional<Employee> findById(int id);
     Employee save(Employee employee, int idBoss, int idOffice, int idPosition);
     Optional<Employee> update(int id, Employee employee, int idPosition, int idOffice, int idBoss);
