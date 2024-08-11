@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.nasefa.springfinalproject.domain.repositories.CityRepository;
 import com.nasefa.springfinalproject.domain.repositories.OfficeRepository;
 import com.nasefa.springfinalproject.persistence.entities.City;
+import com.nasefa.springfinalproject.persistence.entities.employee.Employee;
 import com.nasefa.springfinalproject.persistence.entities.office.Office;
 
 @Service
@@ -49,9 +50,7 @@ public class OfficeImpl implements IOffice {
         office.setAddres(updatedOffice.getAddres());
         office.setTelephone(updatedOffice.getTelephone());
         if (updatedOffice.getEmployees() != null) {
-            // Limpiar la lista existente
             office.getEmployees().clear();
-            // Agregar los productos nuevos (si no está vacía)
             if (!updatedOffice.getEmployees().isEmpty()) {
                 office.getEmployees().addAll(updatedOffice.getEmployees());
             }
@@ -65,6 +64,9 @@ public class OfficeImpl implements IOffice {
         Optional<Office> optionalOffice = officeRepository.findById(id);
         if (optionalOffice.isEmpty()) {
             return Optional.empty();
+        }
+        for (Employee employee : optionalOffice.get().getEmployees()) {
+            employee.setOffice(null);
         }
         officeRepository.delete(optionalOffice.get());
         return optionalOffice;

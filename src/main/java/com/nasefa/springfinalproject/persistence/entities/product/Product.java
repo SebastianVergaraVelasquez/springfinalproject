@@ -4,8 +4,6 @@ package com.nasefa.springfinalproject.persistence.entities.product;
 import java.util.ArrayList;
 import java.util.List;
 
-// import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import com.nasefa.springfinalproject.persistence.entities.Gamma;
 import com.nasefa.springfinalproject.persistence.entities.OrdersDetail;
 import jakarta.persistence.CascadeType;

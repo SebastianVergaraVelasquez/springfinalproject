@@ -83,7 +83,7 @@ public class ClientController {
         
     }
     
-    @PutMapping("/{id}") //Vrificar qué datos vamos a mandar para modificar el service
+    @PutMapping("/{id}")
     public ResponseEntity<Client> putMethodName(@PathVariable int id, @RequestBody ClientDTO client) {
         Optional<Client> optionalClient = clientService.update(id,client.getClient(), client.getSalesRepId()) ;
         return optionalClient.map(clientl -> new ResponseEntity<>(clientl, HttpStatus.OK))

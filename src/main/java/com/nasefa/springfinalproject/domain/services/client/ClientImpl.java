@@ -29,8 +29,7 @@ public class ClientImpl implements IClient {
     private EmployeeRepository employeeRepository;
 
     @Autowired
-    private AddressRepository addressRepository; //verificar luego el editar de
-    // address
+    private AddressRepository addressRepository;
 
     @Override
     public List<Client> findAllClientsWithDetails() {

@@ -42,11 +42,8 @@ public class GammaImpl implements IGamma {
                 Gamma -> {
                     Gamma.setName(updatedGamma.getName());
                     Gamma.setDescription(updatedGamma.getDescription());
-                    // Manejar la lista de productos
                     if (updatedGamma.getProducts() != null) {
-                        // Limpiar la lista existente
                         Gamma.getProducts().clear();
-                        // Agregar los productos nuevos (si no está vacía)
                         if (!updatedGamma.getProducts().isEmpty()) {
                             Gamma.getProducts().addAll(updatedGamma.getProducts());
                         }

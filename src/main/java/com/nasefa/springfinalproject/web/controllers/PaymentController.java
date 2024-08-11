@@ -3,7 +3,6 @@ package com.nasefa.springfinalproject.web.controllers;
 import com.nasefa.springfinalproject.domain.services.client.IClient;
 import com.nasefa.springfinalproject.domain.services.payment.IPayment;
 import com.nasefa.springfinalproject.domain.services.paytype.IPaymentType;
-import com.nasefa.springfinalproject.persistence.entities.City;
 import com.nasefa.springfinalproject.persistence.entities.payment.Payment;
 import com.nasefa.springfinalproject.persistence.entities.payment.PaymentDTO;
 import com.nasefa.springfinalproject.persistence.entities.PaymentType;
@@ -55,14 +54,13 @@ public class PaymentController {
         Payment savedPayment = paymentService.save(payment.getPayment(), payment.getClientId(), payment.getPayTypeId());
 
         if (savedPayment.getId() == 0) {
-            // Payment vacío significa que el cliente o el tipo de pago no se encontraron
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(savedPayment, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}") // Vrificar qué datos vamos a mandar para modificar el service
+    @PutMapping("/{id}")
     public ResponseEntity<Payment> putMethodName(@PathVariable int id, @RequestBody PaymentDTO paymentDTO) {
         Optional<Payment> optPayment = paymentService.update(id, paymentDTO.getPayment(), paymentDTO.getClientId(), paymentDTO.getPayTypeId());
         return optPayment.map(pay -> new ResponseEntity<>(pay, HttpStatus.OK))

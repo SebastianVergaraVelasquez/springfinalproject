@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.nasefa.springfinalproject.domain.repositories.EmployeePositionRepository;
 import com.nasefa.springfinalproject.domain.repositories.EmployeeRepository;
@@ -95,10 +94,9 @@ public class EmployeeImpl implements IEmployee {
         List<Employee> subordinates = employeeRepository.findByBoss(optionalEmployee.get());
         for (Employee subordinate : subordinates) {
             subordinate.setBoss(null);
-            employeeRepository.save(subordinate); // Guardar cambios en cada subordinado
+            employeeRepository.save(subordinate);
         }
-
-        // Desasociar clientes
+        
         for (Client client : optionalEmployee.get().getClients()) {
             client.setSalesRep(null);
         }

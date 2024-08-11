@@ -66,9 +66,7 @@ public class ProductImpl implements IProduct {
                     product.setHeight(updatedProduct.getHeight());
                     product.setWidth(updatedProduct.getWidth());
                     if (updatedProduct.getOrdersDetails() != null) {
-                        // Limpiar la lista existente
                         product.getOrdersDetails().clear();
-                        // Agregar los productos nuevos (si no está vacía)
                         if (!updatedProduct.getOrdersDetails().isEmpty()) {
                             product.getOrdersDetails().addAll(updatedProduct.getOrdersDetails());
                         }

@@ -40,7 +40,6 @@ public class Client {
     private Employee salesRep;
 
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    // @JsonIgnore
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", orphanRemoval = true)

@@ -32,7 +32,7 @@ public class Office {
     private String addres;
     private String telephone;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "office")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "office")
     @JsonIgnore
     private List<Employee> employees;
 

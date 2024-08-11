@@ -49,7 +49,7 @@ public class PaymentImpl implements IPayment {
         Optional<Client> optClient = clientRepository.findById(clientId);
         Optional<PaymentType> optPayType = payTypeRepository.findById(payTypeId);
         if (optClient.isEmpty()) {
-            return new Payment(); // Retorna un Payment vacío
+            return new Payment();
         }
         payment.setClient(optClient.get());
         payment.setPaymentType(optPayType.get());

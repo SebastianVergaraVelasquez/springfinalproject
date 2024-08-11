@@ -42,8 +42,7 @@ public class Employee {
     @JoinColumn(name = "position_id")
     private EmployeePosition position;
 
-    //RELACION CON CLIENTES ONETOMANY
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salesRep")
+    @OneToMany(mappedBy = "salesRep", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JsonIgnore
     private List<Client> clients;
 

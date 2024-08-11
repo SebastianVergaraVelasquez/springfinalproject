@@ -17,7 +17,6 @@ public interface EmployeeRepository extends CrudRepository<Employee,Integer> {
     @Query("SELECT e FROM Employee e JOIN FETCH e.office JOIN FETCH e.position p JOIN FETCH e.boss WHERE p.id = 5")
     List<Employee> salesReps();
 
-    // @Query("SELECT e FROM Employee e JOIN FETCH e.office JOIN FETCH e.position JOIN FETCH e.boss WHERE =:gammaCode")
     List<Employee> findByOffice(Office office);
 
     @Query("SELECT DISTINCT e FROM Employee e " +

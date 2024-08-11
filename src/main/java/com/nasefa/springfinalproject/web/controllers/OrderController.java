@@ -65,7 +65,6 @@ public class OrderController {
         Order savedOrder = orderService.save(order);
 
         if (savedOrder.getOrderCode().isEmpty()) {
-            // Payment vacío significa que el cliente o el tipo de pago no se encontraron
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -73,7 +72,7 @@ public class OrderController {
         
     }
     
-    @PutMapping("/{id}") //verificar para poner orderDTO
+    @PutMapping("/{id}")
     public ResponseEntity<Order> putMethodName(@PathVariable String id, @RequestBody OrderDTO order) {
         Optional<Order> optOrder = orderService.update(id, order) ;
         return optOrder.map(orderl -> new ResponseEntity<>(orderl, HttpStatus.OK))
