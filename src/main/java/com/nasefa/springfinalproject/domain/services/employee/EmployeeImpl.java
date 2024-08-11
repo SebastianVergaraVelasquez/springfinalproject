@@ -92,6 +92,13 @@ public class EmployeeImpl implements IEmployee {
         if (optionalEmployee.isEmpty()) {
             return Optional.empty();
         }
+        List<Employee> subordinates = employeeRepository.findByBoss(optionalEmployee.get());
+        for (Employee subordinate : subordinates) {
+            subordinate.setBoss(null);
+            employeeRepository.save(subordinate); // Guardar cambios en cada subordinado
+        }
+
+        // Desasociar clientes
         for (Client client : optionalEmployee.get().getClients()) {
             client.setSalesRep(null);
         }

@@ -27,5 +27,5 @@ public interface EmployeeRepository extends CrudRepository<Employee,Integer> {
        "AND e.position.id = 5")
     List<Employee> findEmployeesWithPendingOrders();
 
-    
+    List<Employee> findByBoss(Employee boss);
 }
